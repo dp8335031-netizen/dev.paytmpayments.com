@@ -1,5 +1,3 @@
----
-
 ### 📁 **File 3: README.md** (Optional but Good)
 
 ```markdown
